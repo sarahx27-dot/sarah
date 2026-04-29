@@ -908,6 +908,15 @@
       document.body.classList.remove('welcome-active');
     });
 
+    // Reset welcome screen on bfcache restore
+    window.addEventListener('pageshow', (e) => {
+      if (e.persisted) {
+        welcome.classList.remove('fade-out');
+        document.body.classList.add('welcome-active');
+        window.scrollTo(0, 0);
+      }
+    });
+
     // Tab switching
     document.querySelectorAll('.nav-tab').forEach(btn => {
       btn.addEventListener('click', () => {
