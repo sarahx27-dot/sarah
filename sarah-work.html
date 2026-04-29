@@ -368,9 +368,79 @@
       0%   { transform: translateX(0); }
       100% { transform: translateX(-50%); }
     }
+
+    /* ── WELCOME SCREEN ── */
+    .welcome-screen {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: var(--fg);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: opacity 0.9s cubic-bezier(0.4, 0, 0.2, 1),
+                  visibility 0.9s;
+    }
+
+    .welcome-screen.fade-out {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .welcome-name {
+      font-size: clamp(2.8rem, 6vw, 5.5rem);
+      font-weight: 200;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--bg);
+      opacity: 0;
+      transform: translateY(24px);
+      animation: welcome-rise 1.2s cubic-bezier(0.22, 1, 0.36, 1) 0.3s forwards;
+    }
+
+    .welcome-line {
+      width: 48px;
+      height: 1px;
+      background: rgba(248,248,245,0.25);
+      margin: 2.2rem 0;
+      opacity: 0;
+      animation: welcome-fade 1s ease 1s forwards;
+    }
+
+    .welcome-cta {
+      font-size: 0.6rem;
+      font-weight: 400;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: rgba(248,248,245,0.4);
+      opacity: 0;
+      animation: welcome-fade 1s ease 1.4s forwards;
+    }
+
+    @keyframes welcome-rise {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes welcome-fade {
+      to { opacity: 1; }
+    }
+
+    body.welcome-active { overflow: hidden; }
+    body.welcome-active nav { opacity: 0; transition: opacity 0.6s 0.3s; }
+    body nav { opacity: 1; transition: opacity 0.6s; }
   </style>
 </head>
-<body>
+<body class="welcome-active">
+
+  <!-- ══════════════════ WELCOME SCREEN ══════════════════ -->
+  <div class="welcome-screen" id="welcomeScreen">
+    <span class="welcome-name">Sarah Xu</span>
+    <div class="welcome-line"></div>
+    <span class="welcome-cta">Click to enter</span>
+  </div>
 
   <nav>
     <span class="nav-name">Sarah Xu</span>
@@ -831,6 +901,14 @@
   </main>
 
   <script>
+    // Welcome screen
+    const welcome = document.getElementById('welcomeScreen');
+    welcome.addEventListener('click', () => {
+      welcome.classList.add('fade-out');
+      document.body.classList.remove('welcome-active');
+    });
+
+    // Tab switching
     document.querySelectorAll('.nav-tab').forEach(btn => {
       btn.addEventListener('click', () => {
         const target = btn.dataset.tab;
