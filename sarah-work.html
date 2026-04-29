@@ -332,6 +332,42 @@
       text-transform: uppercase;
       color: var(--mid);
     }
+
+    /* ── PHOTO CAROUSEL ── */
+    .carousel-wrap {
+      padding: 1rem 0 3rem;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .carousel-track {
+      display: flex;
+      gap: 1.2rem;
+      animation: carousel-scroll 35s linear infinite;
+    }
+
+    .carousel-wrap:hover .carousel-track {
+      animation-play-state: paused;
+    }
+
+    .carousel-track img {
+      height: 320px;
+      width: auto;
+      border-radius: 4px;
+      object-fit: cover;
+      flex-shrink: 0;
+      transition: transform 0.35s ease, box-shadow 0.35s ease;
+    }
+
+    .carousel-track img:hover {
+      transform: scale(1.04);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+    }
+
+    @keyframes carousel-scroll {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
   </style>
 </head>
 <body>
@@ -418,6 +454,24 @@
             <div class="entry-content">
               <div class="entry-title">Founder Workshops</div>
               <p class="entry-body">Designed and led hands-on Clay workshops for founder communities at <strong>a16z</strong>, <strong>First Round Capital</strong>, <strong>Gutter Capital</strong>, <strong>Lead Edge Capital</strong>, and <strong>Station F</strong> — bringing GTM engineering education directly into top-tier VC and accelerator ecosystems. Built and ran each session from scratch, tailoring content to early-stage founders actively building their go-to-market motions.</p>
+              <div class="carousel-wrap">
+                <div class="carousel-track" id="workshopCarousel">
+                  <img src="images/workshop-1.jpeg" alt="GTM Engineering After Dark" />
+                  <img src="images/workshop-2.jpeg" alt="Workshop attendees" />
+                  <img src="images/workshop-3.jpeg" alt="Welcome to GTM Engineering After Dark" />
+                  <img src="images/workshop-4.jpeg" alt="Team at Gutter Capital" />
+                  <img src="images/workshop-5.jpeg" alt="Team at Station F" />
+                  <img src="images/workshop-6.jpeg" alt="Workshop presentation" />
+                  <img src="images/workshop-7.jpeg" alt="Clay workshop session" />
+                  <img src="images/workshop-1.jpeg" alt="GTM Engineering After Dark" />
+                  <img src="images/workshop-2.jpeg" alt="Workshop attendees" />
+                  <img src="images/workshop-3.jpeg" alt="Welcome to GTM Engineering After Dark" />
+                  <img src="images/workshop-4.jpeg" alt="Team at Gutter Capital" />
+                  <img src="images/workshop-5.jpeg" alt="Team at Station F" />
+                  <img src="images/workshop-6.jpeg" alt="Workshop presentation" />
+                  <img src="images/workshop-7.jpeg" alt="Clay workshop session" />
+                </div>
+              </div>
             </div>
           </div>
 
