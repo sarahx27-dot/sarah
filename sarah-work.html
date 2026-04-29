@@ -374,7 +374,7 @@
       position: fixed;
       inset: 0;
       z-index: 9999;
-      background: var(--fg);
+      background: var(--bg);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -395,7 +395,7 @@
       font-weight: 200;
       letter-spacing: 0.18em;
       text-transform: uppercase;
-      color: var(--bg);
+      color: var(--fg);
       opacity: 0;
       transform: translateY(24px);
       animation: welcome-rise 1.2s cubic-bezier(0.22, 1, 0.36, 1) 0.3s forwards;
@@ -404,7 +404,7 @@
     .welcome-line {
       width: 48px;
       height: 1px;
-      background: rgba(248,248,245,0.25);
+      background: rgba(17,17,16,0.15);
       margin: 2.2rem 0;
       opacity: 0;
       animation: welcome-fade 1s ease 1s forwards;
@@ -415,7 +415,7 @@
       font-weight: 400;
       letter-spacing: 0.3em;
       text-transform: uppercase;
-      color: rgba(248,248,245,0.4);
+      color: var(--mid);
       opacity: 0;
       animation: welcome-fade 1s ease 1.4s forwards;
     }
