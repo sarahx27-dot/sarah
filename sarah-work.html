@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sarah Xu</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,200;0,300;0,400;1,200;1,300&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #F8F8F5;
+      --fg: #111110;
+      --mid: #999794;
+      --rule: rgba(17,17,16,0.09);
+      --accent: #5B9BD5;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; }
+
+    body {
+      background: var(--bg);
+      color: var(--fg);
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.4rem 3.5rem;
+      z-index: 100;
+      background: var(--bg);
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .nav-name {
+      font-size: 0.7rem;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--fg);
+    }
+
+    .nav-tabs { display: flex; gap: 2.5rem; }
+
+    .nav-tab {
+      background: none;
+      border: none;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--mid);
+      cursor: pointer;
+      padding: 0;
+      transition: color 0.2s;
+    }
+
+    .nav-tab.active { color: var(--accent); }
+    .nav-tab:hover { color: var(--fg); }
+
+    .nav-right {
+      font-size: 0.7rem;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--mid);
+    }
+
+    /* ── PANELS ── */
+    main { padding-top: 4.5rem; }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* ── INTRO ── */
+    .intro {
+      padding: 8rem 3.5rem 7rem;
+      border-bottom: 1px solid var(--rule);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: end;
+    }
+
+    .intro-label {
+      font-size: 0.65rem;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--mid);
+      margin-bottom: 2.5rem;
+    }
+
+    .intro-hed {
+      font-size: clamp(2.4rem, 4.5vw, 4rem);
+      font-weight: 300;
+      line-height: 1.1;
+      letter-spacing: -0.01em;
+    }
+
+    .intro-hed em {
+      font-style: normal;
+      font-weight: 300;
+    }
+
+    .intro-body {
+      font-size: 1.15rem;
+      color: #222220;
+      line-height: 1.85;
+      font-weight: 300;
+    }
+
+    /* ── SECTIONS ── */
+    .section {
+      padding: 6rem 3.5rem;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .section:last-of-type { border-bottom: none; }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: 5rem 1fr;
+      gap: 2rem;
+      margin-bottom: 5rem;
+      align-items: baseline;
+    }
+
+    .section-num {
+      font-size: 0.6rem;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      padding-top: 0.6rem;
+    }
+
+    .section-hed {
+      font-size: clamp(1.8rem, 3.5vw, 2.75rem);
+      font-weight: 300;
+      line-height: 1.1;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .section-hed em { font-style: normal; }
+
+    /* ── ENTRIES ── */
+    .entries { display: flex; flex-direction: column; }
+
+    .entry {
+      display: grid;
+      grid-template-columns: 5rem 1fr;
+      gap: 0 2rem;
+      padding: 3rem 0;
+      border-top: 1px solid var(--rule);
+      align-items: start;
+    }
+
+    .entry-dash {
+      font-size: 0.7rem;
+      font-weight: 300;
+      color: var(--mid);
+      padding-top: 0.3rem;
+    }
+
+    .entry-content { display: flex; flex-direction: column; gap: 0.85rem; }
+
+    .entry-title {
+      font-size: clamp(1.1rem, 2vw, 1.55rem);
+      font-weight: 400;
+      line-height: 1.2;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .entry-title em { font-style: normal; font-weight: 400; }
+
+    .entry-body {
+      font-size: 1.05rem;
+      color: #222220;
+      line-height: 1.85;
+      font-weight: 300;
+      max-width: 520px;
+    }
+
+    .entry-stat {
+      font-size: 0.62rem;
+      font-weight: 400;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .entry-date { display: none; }
+
+    /* ── LESSON ── */
+    .lesson {
+      display: grid;
+      grid-template-columns: 5rem 1fr;
+      gap: 0 2rem;
+      padding: 3rem 0;
+      border-top: 1px solid var(--rule);
+    }
+
+    .lesson-content { display: flex; flex-direction: column; gap: 1rem; }
+
+    .lesson-title {
+      font-size: clamp(1.1rem, 2vw, 1.55rem);
+      font-weight: 400;
+      line-height: 1.2;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .lesson-title em { font-style: normal; font-weight: 400; }
+
+    .lesson-body {
+      font-size: 1.05rem;
+      color: #222220;
+      line-height: 1.85;
+      max-width: 520px;
+    }
+
+    .lesson-label {
+      font-size: 0.6rem;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--fg);
+      margin-top: 0.75rem;
+    }
+
+    .lesson-learned {
+      font-size: 1.05rem;
+      color: #222220;
+      line-height: 1.85;
+      max-width: 520px;
+    }
+
+    .lesson-learned em { font-style: italic; }
+    .placeholder { opacity: 0.28; }
+
+    /* ── ADDITIONAL WORK (writing/research) ── */
+    .writing-entry {
+      display: grid;
+      grid-template-columns: 5rem 1fr;
+      gap: 0 2rem;
+      padding: 3rem 0;
+      border-top: 1px solid var(--rule);
+      align-items: start;
+      text-decoration: none;
+      color: inherit;
+      transition: opacity 0.2s;
+    }
+
+    .writing-entry:hover { opacity: 0.6; }
+
+    .writing-type {
+      font-size: 0.6rem;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--mid);
+      padding-top: 0.35rem;
+    }
+
+    .writing-content { display: flex; flex-direction: column; gap: 0.85rem; }
+
+    .writing-title {
+      font-size: clamp(1.1rem, 2vw, 1.55rem);
+      font-weight: 400;
+      line-height: 1.2;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .writing-title em { font-style: normal; font-weight: 400; }
+
+    .writing-pub { display: none; }
+    .writing-pub-hidden {
+      font-size: 0.6rem;
+      font-weight: 400;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--mid);
+      text-align: right;
+      padding-top: 0.35rem;
+    }
+
+    /* ── LINK BUTTON ── */
+    .entry-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4em;
+      font-size: 0.6rem;
+      font-weight: 400;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #fff;
+      text-decoration: none;
+      background: var(--accent);
+      border: 1px solid var(--accent);
+      padding: 0.4em 0.85em;
+      margin-top: 0.5rem;
+      transition: background 0.2s, border-color 0.2s;
+      width: fit-content;
+    }
+    .entry-btn:hover { background: #4484bc; border-color: #4484bc; }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 2.5rem 3.5rem;
+      display: flex;
+      justify-content: space-between;
+      border-top: 1px solid var(--rule);
+    }
+
+    footer span {
+      font-size: 0.6rem;
+      font-weight: 400;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--mid);
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <span class="nav-name">Sarah Xu</span>
+    <div class="nav-tabs">
+      <button class="nav-tab active" data-tab="clay">Clay</button>
+      <button class="nav-tab" data-tab="hang">Hang</button>
+      <button class="nav-tab" data-tab="more">More</button>
+    </div>
+    <span class="nav-right">Selected Work</span>
+  </nav>
+
+  <main>
+
+    <!-- ══════════════════ CLAY ══════════════════ -->
+    <div id="tab-clay" class="tab-panel active">
+
+      <div class="intro">
+        <div>
+          <p class="intro-label">Startup Ecosystem & Education · Clay</p>
+          <h1 class="intro-hed">Work<br>Snapshot</h1>
+        </div>
+        <p class="intro-body">My north star has been to make Clay University the definitive resource for GTM knowledge and Clay mastery — and to turn every surface of the education platform into a tool of not just activation, but acquisition. Courses, certifications, events, accelerator programs, talent infrastructure: each one should bring new people into Clay's orbit and convert them into power users and product evangelists.</p>
+      </div>
+
+      <div class="section">
+        <div class="section-head">
+          <span class="section-num">01</span>
+          <h2 class="section-hed">Key<br><em>Initiatives</em></h2>
+        </div>
+        <div class="entries">
+
+          <div class="entry">
+            <span class="entry-dash">—</span>
+            <div class="entry-content">
+              <div class="entry-title">Clay Wedge — GTM Accelerator</div>
+              <p class="entry-body">Built and launched Wedge, Clay's startup GTM acceleration program (private beta) — designed for pre-Series A founders and early GTM leaders. Guides cohorts through building a validated ICP, mapped TAM, segment-specific messaging, and a live outbound engine in Clay over 7 days. Participants graduate with a repeatable GTM methodology, Clay credits, and an exclusive founder community. Only out of private beta for a few weeks — already received 300+ applications.</p>
+            </div>
+            <span class="entry-date">Active</span>
+          </div>
+
+          <div class="entry">
+            <span class="entry-dash">—</span>
+            <div class="entry-content">
+              <div class="entry-title">Clay Certifications Program</div>
+              <p class="entry-body">Built from 0 to 1,200+ certified users across four tracks — signaling GTM Engineering expertise in the job market. Owned every layer: rubric design, process design, a grading backend built entirely in Clay, and automations with human-in-the-loop review. The most systems-level project I've owned, touching product, engineering, content, and brand simultaneously. Live at <a href="https://university.clay.com/certifications" target="_blank" rel="noopener" style="color:inherit;">university.clay.com/certifications</a>.</p>
+              <a class="entry-btn" href="https://university.clay.com/certifications" target="_blank" rel="noopener">↗ university.clay.com/certifications</a>
+              <a class="entry-btn" href="https://app.clay.com/workspaces/4515/workbooks/wb_0svlfziYTHMhhedx8x8/all-tables" target="_blank" rel="noopener">↗ Backend Infrastructure</a>
+            </div>
+            <span class="entry-date">Active</span>
+          </div>
+
+          <div class="entry">
+            <span class="entry-dash">—</span>
+            <div class="entry-content">
+              <div class="entry-title">Clay University 3.0</div>
+              <p class="entry-body">Led a full redesign of Clay's education platform — homepage, course pages, certifications page, and logged-in experience built on Strapi and Cloudflare. Unified a fragmented product under a cohesive identity. Also designed and shipped end-to-end full courses on <strong>Inbound Automation</strong>, <strong>CRM Enrichment</strong>, <strong>TAM Sourcing</strong>, and <strong>Signals & ABM</strong>. Drove design end-to-end, shipped live at <a href="https://university.clay.com" target="_blank" rel="noopener" style="color:inherit;">university.clay.com</a>.</p>
+              <span class="entry-stat">100k+ unique pageviews</span>
+              <a class="entry-btn" href="https://university.clay.com/courses" target="_blank" rel="noopener">↗ university.clay.com/courses</a>
+            </div>
+            <span class="entry-date">2025</span>
+          </div>
+
+          <div class="entry">
+            <span class="entry-dash">—</span>
+            <div class="entry-content">
+              <div class="entry-title">IRL Events</div>
+              <p class="entry-body">Produced and hosted a series of community events that became defining moments for Clay's GTM Engineering brand. <strong>Clay Club SF: State of GTM Engineering</strong> — 400+ RSVPs for 100 spots. <strong>GTM Engineering After Dark</strong> at Hexa Paris — brought the Clay community to a new continent. <strong>Clay Club Seattle</strong> — 100 RSVPs, first-ever Clay Club in the city.</p>
+            </div>
+          </div>
+
+          <div class="entry">
+            <span class="entry-dash">—</span>
+            <div class="entry-content">
+              <div class="entry-title">Enterprise Workshops — NYC, Paris, London, Berlin</div>
+              <p class="entry-body">Planned and executed full-day, in-person enterprise workshops across multiple cities — bringing Clay to EMEA for the first time. Each workshop gathered prospects with collectively 500k+ in pipeline. Experiential by design: brought in special guests including magicians, artists, and florists to make each event genuinely memorable, not just educational. Iterated on format, content, and instructional style across every session — developing a repeatable playbook for high-impact enterprise education.</p>
+            </div>
+          </div>
+
+          <div class="entry">
+            <span class="entry-dash">—</span>
+            <div class="entry-content">
+              <div class="entry-title">Founder Workshops</div>
+              <p class="entry-body">Designed and led hands-on Clay workshops for founder communities at <strong>a16z</strong>, <strong>First Round Capital</strong>, <strong>Gutter Capital</strong>, <strong>Lead Edge Capital</strong>, and <strong>Station F</strong> — bringing GTM engineering education directly into top-tier VC and accelerator ecosystems. Built and ran each session from scratch, tailoring content to early-stage founders actively building their go-to-market motions.</p>
+            </div>
+          </div>
+
+          <div class="entry">
+            <span class="entry-dash">—</span>
+            <div class="entry-content">
+              <div class="entry-title">Talent Marketplace</div>
+              <p class="entry-body">Launched <a href="https://clay.com/talent" target="_blank" rel="noopener" style="color:inherit;">clay.com/talent</a> — connecting Clay power users with companies hiring for GTM roles. Cross-functional project spanning Brand, People, and Education.</p>
+              <a class="entry-btn" href="https://clay.com/talent" target="_blank" rel="noopener">↗ clay.com/talent</a>
+            </div>
+            <span class="entry-date">Dec 2025</span>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-head">
+          <span class="section-num">02</span>
+          <h2 class="section-hed">Ramping fast on<br><em>unfamiliar ground</em></h2>
+        </div>
+        <div class="entries">
+
+          <div class="entry">
+            <span class="entry-dash">—</span>
+            <div class="entry-content">
+              <div class="entry-title">Processing, Grading & <em>Issuing Infrastructure</em></div>
+              <p class="entry-body">Built the certification grading and credentialing backend from scratch — an entirely new technical domain. Designed Clay workbook logic for processing submissions, grading, and issuing credentials at scale.</p>
+            </div>
+            <span class="entry-date">Active</span>
+          </div>
+
+          <div class="entry">
+            <span class="entry-dash">—</span>
+            <div class="entry-content">
+              <div class="entry-title">Clay × <em>ChatGPT</em> Enablement</div>
+              <p class="entry-body">Cross-functional initiative spanning Growth, Product, and Education to develop enablement around Clay's ChatGPT integration — a fast-moving area with no existing playbook.</p>
+            </div>
+            <span class="entry-date">Active</span>
+          </div>
+
+          <div class="entry">
+            <span class="entry-dash">—</span>
+            <div class="entry-content">
+              <div class="entry-title"><em>Sculptor</em> Knowledge Infrastructure</div>
+              <p class="entry-body">Compiled and synthesized Clay's full education content library — courses, tips and tricks, and support themes surfaced through Unwrap — into a structured knowledge base to bolster Sculptor's accuracy and depth of response. Not documentation, but a cross-functional effort to make the AI a better teacher by feeding it everything we knew.</p>
+            </div>
+            <span class="entry-date">Sep 2025</span>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-head">
+          <span class="section-num">03</span>
+          <h2 class="section-hed">Shipped under<br><em>pressure</em></h2>
+        </div>
+        <div class="entries">
+
+          <div class="entry">
+            <span class="entry-dash">—</span>
+            <div class="entry-content">
+              <div class="entry-title">Certs Lab — <em>3 Events</em> in 25 Days</div>
+              <p class="entry-body">Designed and ran three consecutive virtual events: Oct 6 (~400 RSVPs), Oct 16 (~400 RSVPs), Oct 30 (~250 RSVPs). Each required standalone content, logistics, and promotion while the previous was still wrapping up.</p>
+              <span class="entry-stat">~1,050 total RSVPs · 3 events · 25 days</span>
+            </div>
+            <span class="entry-date">Oct – Nov 2025</span>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-head">
+          <span class="section-num">04</span>
+          <h2 class="section-hed">Learning<br><em>Moments</em></h2>
+        </div>
+        <div class="entries">
+          <div class="lesson">
+            <span></span>
+            <div class="lesson-content">
+              <div class="lesson-title">Clay Certifications — <em>Launched Strong, Then Paused</em></div>
+              <p class="lesson-body">We certified nearly 1,000 people across four tracks in six months. But several signals converged: the assessment was gameable (public rubric + AI meant people could reverse-engineer a passing submission), scoring didn't distinguish quality levels, and we lacked a clear north star for what the credential means to an employer. The litmus test — would Clay's own talent team hire someone because of this cert? — we couldn't answer with conviction.</p>
+              <p class="lesson-label">What I took from it</p>
+              <p class="lesson-learned">We shipped before fully defining the bar. I'd do the demand-side work earlier next time — building backward from employer expectations, not forward from what's easiest to assess. The retro I wrote (March 2026) is structured around one question: <em>what does it mean to be Clay Certified, and would someone hire you because of it?</em></p>
+              <a class="entry-btn" href="https://www.notion.so/clayrun/Certifications-Retro-Plan-34f7e66eb01480d89926f53e364b2dc0?source=copy_link" target="_blank" rel="noopener">↗ Read the Retro</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-head">
+          <span class="section-num">05</span>
+          <h2 class="section-hed">High-stakes<br><em>work</em></h2>
+        </div>
+        <div class="entries">
+
+          <div class="entry">
+            <span class="entry-dash">—</span>
+            <div class="entry-content">
+              <div class="entry-title">Clay <em>Certifications</em> Program</div>
+              <p class="entry-body">Built from the ground up — curriculum design, credential visual identity, grading backend, and <a href="https://university.clay.com/certifications" target="_blank" rel="noopener" style="color:inherit;">university.clay.com/certifications</a>. The most systems-level project I've owned, touching product, engineering, content, and brand simultaneously.</p>
+              <a class="entry-btn" href="https://university.clay.com/certifications" target="_blank" rel="noopener">↗ university.clay.com/certifications</a>
+            </div>
+            <span class="entry-date">Active</span>
+          </div>
+
+          <div class="entry">
+            <span class="entry-dash">—</span>
+            <div class="entry-content">
+              <div class="entry-title">Clay <em>for Founders</em></div>
+              <p class="entry-body">Owned the launch of <a href="https://clay.com/clay-for-startups" target="_blank" rel="noopener" style="color:inherit;">clay.com/clay-for-startups</a> — a program with meaningful revenue and partnership implications, sitting at the intersection of community, brand, and growth.</p>
+              <a class="entry-btn" href="https://clay.com/clay-for-startups" target="_blank" rel="noopener">↗ clay.com/clay-for-startups</a>
+            </div>
+            <span class="entry-date">Dec 2025</span>
+          </div>
+
+          <div class="entry">
+            <span class="entry-dash">—</span>
+            <div class="entry-content">
+              <div class="entry-title">Clay <em>Campus</em> Ambassadors</div>
+              <p class="entry-body">Launched Clay's campus ambassador program from scratch — program design, application flow, onboarding infrastructure, and the live landing page. Ambassadors launch Clay Clubs on campus and get access to Clay credits, the talent network, and mentorship. Applications for 2026–2027 close May 11, 2026.</p>
+              <a class="entry-btn" href="https://ambassador-website-v2-rho.vercel.app/" target="_blank" rel="noopener">↗ View Program</a>
+            </div>
+            <span class="entry-date">Dec 2025</span>
+          </div>
+
+        </div>
+      </div>
+
+      <footer>
+        <span>Sarah Xu · Clay · Education & GTME</span>
+        <span>2025 ©</span>
+      </footer>
+
+    </div><!-- /clay -->
+
+
+    <!-- ══════════════════ HANG ══════════════════ -->
+    <div id="tab-hang" class="tab-panel">
+
+      <div class="intro">
+        <div>
+          <p class="intro-label">Head of Growth Strategy & Ops · Hang</p>
+          <h1 class="intro-hed">Work<br>Snapshot</h1>
+        </div>
+        <p class="intro-body">Founding GTM hire at <a href="https://hang.com" target="_blank" rel="noopener" style="color:inherit; border-bottom: 1px solid var(--rule);">Hang</a> — an AI-powered marketing platform for restaurants and consumer brands. Built every channel from scratch, carried full sales cycle responsibility from top-of-funnel lead generation to closing enterprise deals, helping double ARR within the first six months.</p>
+        <a class="entry-btn" href="https://hang.com" target="_blank" rel="noopener" style="margin-top:1.5rem;">↗ hang.com</a>
+      </div>
+
+      <div class="section">
+        <div class="section-head">
+          <span class="section-num">01</span>
+          <h2 class="section-hed">Key<br><em>Initiatives</em></h2>
+        </div>
+        <div class="entries">
+
+          <div class="entry">
+            <span class="entry-dash">—</span>
+            <div class="entry-content">
+              <div class="entry-title"><em>Full-cycle</em> Enterprise Sales</div>
+              <p class="entry-body">Led the full sales cycle end-to-end — initial introduction through contract signing — engaging C-level executives at restaurant groups, beauty brands, and consumer companies. Owned the pipeline, the pitch, and the close with no sales team beneath me.</p>
+              <span class="entry-stat">$5M in pipeline opportunity · 30%+ demo-to-close rate</span>
+            </div>
+            <span class="entry-date"></span>
+          </div>
+
+          <div class="entry">
+            <span class="entry-dash">—</span>
+            <div class="entry-content">
+              <div class="entry-title">The First <em>GTM Motion</em> from Zero</div>
+              <p class="entry-body">Before me, it was all founder-led sales and inbound — no outbound motion, no channel strategy, no playbook. I built it from scratch: channel partnerships, social, programmatic email outbound, 3rd party ads, website optimization, and in-person conferences — spinning up each channel, testing what worked, and cutting what didn't. Growth here was creative before it was systematic: finding distribution surface area that incumbents ignored and building presence where the customers actually were.</p>
+              <span class="entry-stat">2× ARR in 6 months</span>
+            </div>
+            <span class="entry-date"></span>
+          </div>
+
+          <div class="entry">
+            <span class="entry-dash">—</span>
+            <div class="entry-content">
+              <div class="entry-title">Partner Sales & Enablement — <em>Toast, Square</em></div>
+              <p class="entry-body">Developed and owned channel partnership strategy with key POS and commerce platforms including <strong>Toast</strong> and <strong>Square</strong> — two of the dominant distribution layers in Hang's core restaurant and retail verticals. Served as the single liaison for both relationships, leading partner enablement sessions, building joint value propositions and sales motions, and managing the full relationship from initial scoping through co-selling. Also laid the integration partner roadmap — sourcing signal directly from the field to identify the next wave of POS systems, CDPs, loyalty platforms, and app builders that Hang should build toward.</p>
+            </div>
+            <span class="entry-date"></span>
+          </div>
+
+          <div class="entry">
+            <span class="entry-dash">—</span>
+            <div class="entry-content">
+              <div class="entry-title">Executive <em>Brand</em></div>
+              <p class="entry-body">Ghostwrote all of CEO Matt Smolin's LinkedIn content, building his executive platform from the ground up. Developed his voice, curated his point of view on AI and B2C marketing, and maintained a consistent publishing cadence — turning his profile into a top-of-funnel channel for Hang's brand and pipeline.</p>
+              <span class="entry-stat">8k+ followers built from scratch</span>
+            </div>
+            <span class="entry-date"></span>
+          </div>
+
+          <div class="entry">
+            <span class="entry-dash">—</span>
+            <div class="entry-content">
+              <div class="entry-title">Competitive Intelligence <em>& Battlecards</em></div>
+              <p class="entry-body">Went deep on the competitive landscape — mapping every meaningful player in loyalty, martech, and adjacent categories. Turned that research into sales-tested battlecards for each tool a prospect was likely running, purpose-built to lead rip-and-replace conversations. The battlecards became core sales infrastructure: used in every deal to reframe the incumbent and position Hang as the obvious move.</p>
+            </div>
+            <span class="entry-date"></span>
+          </div>
+
+          <div class="entry">
+            <span class="entry-dash">—</span>
+            <div class="entry-content">
+              <div class="entry-title">Brand & <em>Sales</em> Collateral</div>
+              <p class="entry-body">Designed and curated the full suite of digital assets, messaging frameworks, and decks for promotional and sales contexts. Wore the designer hat alongside the GTM hat.</p>
+              <a class="entry-btn" href="https://hang.com/loyalty" target="_blank" rel="noopener">↗ hang.com/loyalty</a>
+            </div>
+            <span class="entry-date"></span>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-head">
+          <span class="section-num">02</span>
+          <h2 class="section-hed">Ramping fast on<br><em>unfamiliar ground</em></h2>
+        </div>
+        <div class="entries">
+
+          <div class="entry">
+            <span class="entry-dash">—</span>
+            <div class="entry-content">
+              <div class="entry-title">Learning <em>Loyalty</em> & Martech</div>
+              <p class="entry-body">Hang operates at the intersection of AI, loyalty programs, and vertical-specific marketing for restaurants and consumer brands — a domain I had to ramp on quickly. Got deep on the competitive landscape, customer buying behavior, and the pain points of restaurant and beauty operators. Learned what makes customers tick well enough to hold my own in C-level conversations and build a GTM strategy that resonated.</p>
+            </div>
+            <span class="entry-date"></span>
+          </div>
+
+          <div class="entry">
+            <span class="entry-dash">—</span>
+            <div class="entry-content">
+              <div class="entry-title">Sharpening <em>Sales Craft</em></div>
+              <p class="entry-body">Developed my sales philosophy from first principles — learning that the best sales leads with holes, not drills. Honed techniques to shorten cycles, streamline post-sale handoff, and reduce friction from first call to close. Each deal made the next one smarter and faster.</p>
+            </div>
+            <span class="entry-date"></span>
+          </div>
+
+          <div class="entry">
+            <span class="entry-dash">—</span>
+            <div class="entry-content">
+              <div class="entry-title">Product Collaboration <em>Without a PM</em></div>
+              <p class="entry-body">Became the connective tissue between product and what the market was actually asking for. Synthesized customer feedback, support patterns, and market signals into a clear point of view — then brought it directly to engineering. Specced features and helped shape the roadmap, a function I hadn't formally owned before.</p>
+            </div>
+            <span class="entry-date"></span>
+          </div>
+
+          <div class="entry">
+            <span class="entry-dash">—</span>
+            <div class="entry-content">
+              <div class="entry-title">Sole GTM Owner at a <em>Series A</em> Startup</div>
+              <p class="entry-body">As the only GTM person, every deadline was a hard deadline. New channel experiments, conference appearances, sales collateral, and outbound sequences all shipped in parallel — with no team to delegate to. The pressure wasn't a single sprint; it was the default operating mode for 16 months.</p>
+              <span class="entry-stat">16 months</span>
+            </div>
+            <span class="entry-date"></span>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-head">
+          <span class="section-num">03</span>
+          <h2 class="section-hed">High-stakes<br><em>work</em></h2>
+        </div>
+        <div class="entries">
+
+          <div class="entry">
+            <span class="entry-dash">—</span>
+            <div class="entry-content">
+              <div class="entry-title">Founding GTM Hire — <em>All Bets Ran Through Me</em></div>
+              <p class="entry-body">Every go-to-market decision in Hang's critical growth window landed on my desk. Which channels to invest in, how to position against incumbents, what the sales narrative should be, which segments to prioritize — strategic bets with direct consequences for the company's ability to fundraise and survive.</p>
+            </div>
+            <span class="entry-date"></span>
+          </div>
+
+          <div class="entry">
+            <span class="entry-dash">—</span>
+            <div class="entry-content">
+              <div class="entry-title">Market Research → <em>Value Proposition</em> Refinement</div>
+              <p class="entry-body">Conducted ongoing market research to continuously refine Hang's value propositions and identify growth opportunities. In a fast-moving AI product category, the messaging that worked in January wasn't the messaging that worked in December — staying calibrated was itself a high-stakes ongoing project.</p>
+            </div>
+            <span class="entry-date"></span>
+          </div>
+
+        </div>
+      </div>
+
+      <footer>
+        <span>Sarah Xu · Hang · Head of Growth Strategy & Ops</span>
+        <span>2024–2025 ©</span>
+      </footer>
+
+    </div><!-- /hang -->
+
+
+    <!-- ══════════════════ MORE ══════════════════ -->
+    <div id="tab-more" class="tab-panel">
+
+      <div class="intro">
+        <div>
+          <p class="intro-label">Research & Writing</p>
+          <h1 class="intro-hed">Beyond the<br><em>day job</em></h1>
+        </div>
+        <p class="intro-body">Academic research published in the Stanford Undergraduate Research Journal, and a personal Substack where I write about desire, choice, and the texture of living.</p>
+      </div>
+
+      <div class="section">
+        <div class="section-head">
+          <span class="section-num">—</span>
+          <h2 class="section-hed"><em>Published</em><br>Research</h2>
+        </div>
+        <div class="entries">
+          <a class="writing-entry" href="https://ojs.stanford.edu/ojs/index.php/surj/article/view/3282" target="_blank" rel="noopener">
+            <span class="writing-type">SURJ</span>
+            <div class="writing-content">
+              <div class="writing-title"><em>You Are What You Eat:</em> Chinese Ethnic Restauration in Paris as Identity Work</div>
+              <p class="entry-body">An ethnographic study of how French-born Chinese restaurant owners in Paris function as cultural brokers, reshaping the meaning of Chinese cuisine for non-Chinese diners. Examines how these entrepreneurs use culinary and business strategies to negotiate diasporic identity and contest prevailing cultural narratives.</p>
+              <span class="entry-stat">Stanford Undergraduate Research Journal · Vol. 20, No. 2 · Spring 2025</span>
+            </div>
+            <span class="writing-pub">2025</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-head">
+          <span class="section-num">—</span>
+          <h2 class="section-hed"><em>Personal</em><br>Writing</h2>
+        </div>
+        <div class="entries">
+          <a class="writing-entry" href="https://sarahxu.substack.com" target="_blank" rel="noopener">
+            <span class="writing-type">Substack</span>
+            <div class="writing-content">
+              <div class="writing-title">sar's stack — <em>a chamber of not-so-secrets</em></div>
+              <p class="entry-body">Personal essays on desire, choice, and the texture of living. A living record of everything I'm learning and understanding in the crucible of young adulthood.</p>
+            </div>
+            <span class="writing-pub">Ongoing</span>
+          </a>
+        </div>
+      </div>
+
+      <footer>
+        <span>Sarah Xu · Research & Writing</span>
+        <span>©</span>
+      </footer>
+
+    </div><!-- /more -->
+
+  </main>
+
+  <script>
+    document.querySelectorAll('.nav-tab').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const target = btn.dataset.tab;
+        document.querySelectorAll('.nav-tab').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById('tab-' + target).classList.add('active');
+        window.scrollTo(0, 0);
+      });
+    });
+  </script>
+</body>
+</html>
