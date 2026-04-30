@@ -369,6 +369,50 @@
       100% { transform: translateX(-50%); }
     }
 
+    /* ── LOGO CAROUSEL ── */
+    .logo-carousel-wrap {
+      padding: 2rem 0 3rem;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .logo-carousel-label {
+      font-size: 0.55rem;
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--mid);
+      margin-bottom: 1.5rem;
+    }
+
+    .logo-carousel-track {
+      display: flex;
+      align-items: center;
+      gap: 4rem;
+      animation: carousel-scroll 20s linear infinite;
+    }
+
+    .logo-carousel-wrap:hover .logo-carousel-track {
+      animation-play-state: paused;
+    }
+
+    .logo-carousel-track img {
+      height: 40px;
+      width: auto;
+      object-fit: contain;
+      flex-shrink: 0;
+      opacity: 0.7;
+      transition: opacity 0.3s ease;
+    }
+
+    .logo-carousel-track img:hover {
+      opacity: 1;
+    }
+
+    .logo-carousel-track img.logo-invert {
+      filter: invert(1);
+    }
+
     /* ── WELCOME SCREEN ── */
     .welcome-screen {
       position: fixed;
@@ -692,6 +736,22 @@
         </div>
         <p class="intro-body">Founding GTM hire at <a href="https://hang.com" target="_blank" rel="noopener" style="color:inherit; border-bottom: 1px solid var(--rule);">Hang</a> — an AI-powered marketing platform for restaurants and consumer brands. Built every channel from scratch, carried full sales cycle responsibility from top-of-funnel lead generation to closing enterprise deals, helping double ARR within the first six months.</p>
         <a class="entry-btn" href="https://hang.com" target="_blank" rel="noopener" style="margin-top:1.5rem;">↗ hang.com</a>
+      </div>
+
+      <div class="logo-carousel-wrap">
+        <div class="logo-carousel-label">Closed & Activated</div>
+        <div class="logo-carousel-track" id="logoCarousel">
+          <img src="images/logos/justpoke.png" alt="Just Poke" />
+          <img src="images/logos/jenis.png" alt="Jeni's" />
+          <img src="images/logos/tazikis.png" alt="Taziki's" class="logo-invert" />
+          <img src="images/logos/bobaguys.png" alt="Boba Guys" />
+          <img src="images/logos/vitalitybowls.png" alt="Vitality Bowls" />
+          <img src="images/logos/justpoke.png" alt="Just Poke" />
+          <img src="images/logos/jenis.png" alt="Jeni's" />
+          <img src="images/logos/tazikis.png" alt="Taziki's" class="logo-invert" />
+          <img src="images/logos/bobaguys.png" alt="Boba Guys" />
+          <img src="images/logos/vitalitybowls.png" alt="Vitality Bowls" />
+        </div>
       </div>
 
       <div class="section">
