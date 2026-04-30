@@ -173,7 +173,12 @@
       padding-top: 0.3rem;
     }
 
-    .entry-content { display: flex; flex-direction: column; gap: 0.85rem; }
+    .entry-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.85rem 3rem;
+      align-items: start;
+    }
 
     .entry-title {
       font-size: clamp(1.1rem, 2vw, 1.55rem);
@@ -181,6 +186,8 @@
       line-height: 1.2;
       letter-spacing: 0.04em;
       text-transform: uppercase;
+      grid-column: 1;
+      grid-row: 1;
     }
 
     .entry-title em { font-style: normal; font-weight: 400; }
@@ -190,7 +197,8 @@
       color: #222220;
       line-height: 1.85;
       font-weight: 300;
-      max-width: 520px;
+      grid-column: 2;
+      grid-row: 1;
     }
 
     .entry-stat {
@@ -199,6 +207,7 @@
       letter-spacing: 0.15em;
       text-transform: uppercase;
       color: var(--accent);
+      grid-column: 2;
     }
 
     .entry-date { display: none; }
@@ -212,7 +221,12 @@
       border-top: 1px solid var(--rule);
     }
 
-    .lesson-content { display: flex; flex-direction: column; gap: 1rem; }
+    .lesson-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem 3rem;
+      align-items: start;
+    }
 
     .lesson-title {
       font-size: clamp(1.1rem, 2vw, 1.55rem);
@@ -220,6 +234,8 @@
       line-height: 1.2;
       letter-spacing: 0.04em;
       text-transform: uppercase;
+      grid-column: 1;
+      grid-row: 1;
     }
 
     .lesson-title em { font-style: normal; font-weight: 400; }
@@ -228,7 +244,8 @@
       font-size: 1.05rem;
       color: #222220;
       line-height: 1.85;
-      max-width: 520px;
+      grid-column: 2;
+      grid-row: 1;
     }
 
     .lesson-label {
@@ -238,13 +255,14 @@
       text-transform: uppercase;
       color: var(--fg);
       margin-top: 0.75rem;
+      grid-column: 2;
     }
 
     .lesson-learned {
       font-size: 1.05rem;
       color: #222220;
       line-height: 1.85;
-      max-width: 520px;
+      grid-column: 2;
     }
 
     .lesson-learned em { font-style: italic; }
@@ -314,6 +332,7 @@
       margin-top: 0.5rem;
       transition: background 0.2s, border-color 0.2s;
       width: fit-content;
+      grid-column: 2;
     }
     .entry-btn:hover { background: #4484bc; border-color: #4484bc; }
 
@@ -332,9 +351,160 @@
       text-transform: uppercase;
       color: var(--mid);
     }
+
+    /* ── PHOTO CAROUSEL ── */
+    .carousel-wrap {
+      padding: 1rem 0 3rem;
+      overflow: hidden;
+      position: relative;
+      grid-column: 2;
+    }
+
+    .carousel-track {
+      display: flex;
+      gap: 1.2rem;
+      animation: carousel-scroll 35s linear infinite;
+    }
+
+    .carousel-wrap:hover .carousel-track {
+      animation-play-state: paused;
+    }
+
+    .carousel-track img {
+      height: 220px;
+      width: auto;
+      border-radius: 4px;
+      object-fit: cover;
+      flex-shrink: 0;
+      transition: transform 0.35s ease, box-shadow 0.35s ease;
+    }
+
+    .carousel-track img:hover {
+      transform: scale(1.04);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+    }
+
+    @keyframes carousel-scroll {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* ── LOGO CAROUSEL ── */
+    .logo-carousel-wrap {
+      padding: 2rem 0 3rem;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .logo-carousel-label {
+      font-size: 0.55rem;
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--mid);
+      margin-bottom: 1.5rem;
+    }
+
+    .logo-carousel-track {
+      display: flex;
+      align-items: center;
+      gap: 4rem;
+      animation: carousel-scroll 20s linear infinite;
+    }
+
+    .logo-carousel-wrap:hover .logo-carousel-track {
+      animation-play-state: paused;
+    }
+
+    .logo-carousel-track img {
+      height: 40px;
+      width: auto;
+      object-fit: contain;
+      flex-shrink: 0;
+      opacity: 0.7;
+      transition: opacity 0.3s ease;
+    }
+
+    .logo-carousel-track img:hover {
+      opacity: 1;
+    }
+
+    .logo-carousel-track img.logo-invert {
+      filter: invert(1);
+    }
+
+    /* ── WELCOME SCREEN ── */
+    .welcome-screen {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: var(--bg);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: opacity 0.9s cubic-bezier(0.4, 0, 0.2, 1),
+                  visibility 0.9s;
+    }
+
+    .welcome-screen.fade-out {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .welcome-name {
+      font-size: clamp(2.8rem, 6vw, 5.5rem);
+      font-weight: 200;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--fg);
+      opacity: 0;
+      transform: translateY(24px);
+      animation: welcome-rise 1.2s cubic-bezier(0.22, 1, 0.36, 1) 0.3s forwards;
+    }
+
+    .welcome-line {
+      width: 48px;
+      height: 1px;
+      background: rgba(17,17,16,0.15);
+      margin: 2.2rem 0;
+      opacity: 0;
+      animation: welcome-fade 1s ease 1s forwards;
+    }
+
+    .welcome-cta {
+      font-size: 0.6rem;
+      font-weight: 400;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--mid);
+      opacity: 0;
+      animation: welcome-fade 1s ease 1.4s forwards;
+    }
+
+    @keyframes welcome-rise {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes welcome-fade {
+      to { opacity: 1; }
+    }
+
+    body.welcome-active { overflow: hidden; }
+    body.welcome-active nav { opacity: 0; transition: opacity 0.6s 0.3s; }
+    body nav { opacity: 1; transition: opacity 0.6s; }
   </style>
 </head>
-<body>
+<body class="welcome-active">
+
+  <!-- ══════════════════ WELCOME SCREEN ══════════════════ -->
+  <div class="welcome-screen" id="welcomeScreen">
+    <span class="welcome-name">Sarah Xu</span>
+    <div class="welcome-line"></div>
+    <span class="welcome-cta">come on in</span>
+  </div>
 
   <nav>
     <span class="nav-name">Sarah Xu</span>
@@ -418,6 +588,26 @@
             <div class="entry-content">
               <div class="entry-title">Founder Workshops</div>
               <p class="entry-body">Designed and led hands-on Clay workshops for founder communities at <strong>a16z</strong>, <strong>First Round Capital</strong>, <strong>Gutter Capital</strong>, <strong>Lead Edge Capital</strong>, and <strong>Station F</strong> — bringing GTM engineering education directly into top-tier VC and accelerator ecosystems. Built and ran each session from scratch, tailoring content to early-stage founders actively building their go-to-market motions.</p>
+              <div class="carousel-wrap">
+                <div class="carousel-track" id="workshopCarousel">
+                  <img src="images/workshop-1.jpeg" alt="GTM Engineering After Dark" />
+                  <img src="images/workshop-2.jpeg" alt="Workshop attendees" />
+                  <img src="images/workshop-3.jpeg" alt="Welcome to GTM Engineering After Dark" />
+                  <img src="images/workshop-4.jpeg" alt="Team at Gutter Capital" />
+                  <img src="images/workshop-5.jpeg" alt="Team at Station F" />
+                  <img src="images/workshop-6.jpeg" alt="Workshop presentation" />
+                  <img src="images/workshop-7.jpeg" alt="Clay workshop session" />
+                  <img src="images/workshop-8.jpeg" alt="Clay GTM Engine presentation" />
+                  <img src="images/workshop-1.jpeg" alt="GTM Engineering After Dark" />
+                  <img src="images/workshop-2.jpeg" alt="Workshop attendees" />
+                  <img src="images/workshop-3.jpeg" alt="Welcome to GTM Engineering After Dark" />
+                  <img src="images/workshop-4.jpeg" alt="Team at Gutter Capital" />
+                  <img src="images/workshop-5.jpeg" alt="Team at Station F" />
+                  <img src="images/workshop-6.jpeg" alt="Workshop presentation" />
+                  <img src="images/workshop-7.jpeg" alt="Clay workshop session" />
+                  <img src="images/workshop-8.jpeg" alt="Clay GTM Engine presentation" />
+                </div>
+              </div>
             </div>
           </div>
 
@@ -429,6 +619,26 @@
               <a class="entry-btn" href="https://clay.com/talent" target="_blank" rel="noopener">↗ clay.com/talent</a>
             </div>
             <span class="entry-date">Dec 2025</span>
+          </div>
+
+          <div class="entry">
+            <span class="entry-dash">—</span>
+            <div class="entry-content">
+              <div class="entry-title">Clay <em>Campus</em> Ambassadors</div>
+              <p class="entry-body">Launched Clay's campus ambassador program from scratch — program design, application flow, onboarding infrastructure, and the live landing page. Ambassadors launch Clay Clubs on campus and get access to Clay credits, the talent network, and mentorship. Applications for 2026–2027 close May 11, 2026.</p>
+              <a class="entry-btn" href="https://www.clay.com/clay-campus-ambassadors" target="_blank" rel="noopener">↗ View Program</a>
+            </div>
+            <span class="entry-date">Dec 2025</span>
+          </div>
+
+          <div class="entry">
+            <span class="entry-dash">—</span>
+            <div class="entry-content">
+              <div class="entry-title">Certs Lab — <em>3 Events</em> in 25 Days</div>
+              <p class="entry-body">Designed and ran three consecutive virtual events: Oct 6 (~400 RSVPs), Oct 16 (~400 RSVPs), Oct 30 (~250 RSVPs). Each required standalone content, logistics, and promotion while the previous was still wrapping up.</p>
+              <span class="entry-stat">~1,050 total RSVPs · 3 events · 25 days</span>
+            </div>
+            <span class="entry-date">Oct – Nov 2025</span>
           </div>
 
         </div>
@@ -454,7 +664,7 @@
             <span class="entry-dash">—</span>
             <div class="entry-content">
               <div class="entry-title">Clay × <em>ChatGPT</em> Enablement</div>
-              <p class="entry-body">Cross-functional initiative spanning Growth, Product, and Education to develop enablement around Clay's ChatGPT integration — a fast-moving area with no existing playbook.</p>
+              <p class="entry-body">Cross-functional initiative spanning Growth, Product, and Education to develop enablement around Clay's ChatGPT integration — Clay's first exploration into the rep-tooling space.</p>
             </div>
             <span class="entry-date">Active</span>
           </div>
@@ -474,26 +684,6 @@
       <div class="section">
         <div class="section-head">
           <span class="section-num">03</span>
-          <h2 class="section-hed">Shipped under<br><em>pressure</em></h2>
-        </div>
-        <div class="entries">
-
-          <div class="entry">
-            <span class="entry-dash">—</span>
-            <div class="entry-content">
-              <div class="entry-title">Certs Lab — <em>3 Events</em> in 25 Days</div>
-              <p class="entry-body">Designed and ran three consecutive virtual events: Oct 6 (~400 RSVPs), Oct 16 (~400 RSVPs), Oct 30 (~250 RSVPs). Each required standalone content, logistics, and promotion while the previous was still wrapping up.</p>
-              <span class="entry-stat">~1,050 total RSVPs · 3 events · 25 days</span>
-            </div>
-            <span class="entry-date">Oct – Nov 2025</span>
-          </div>
-
-        </div>
-      </div>
-
-      <div class="section">
-        <div class="section-head">
-          <span class="section-num">04</span>
           <h2 class="section-hed">Learning<br><em>Moments</em></h2>
         </div>
         <div class="entries">
@@ -507,46 +697,16 @@
               <a class="entry-btn" href="https://www.notion.so/clayrun/Certifications-Retro-Plan-34f7e66eb01480d89926f53e364b2dc0?source=copy_link" target="_blank" rel="noopener">↗ Read the Retro</a>
             </div>
           </div>
-        </div>
-      </div>
-
-      <div class="section">
-        <div class="section-head">
-          <span class="section-num">05</span>
-          <h2 class="section-hed">High-stakes<br><em>work</em></h2>
-        </div>
-        <div class="entries">
-
-          <div class="entry">
-            <span class="entry-dash">—</span>
-            <div class="entry-content">
-              <div class="entry-title">Clay <em>Certifications</em> Program</div>
-              <p class="entry-body">Built from the ground up — curriculum design, credential visual identity, grading backend, and <a href="https://university.clay.com/certifications" target="_blank" rel="noopener" style="color:inherit;">university.clay.com/certifications</a>. The most systems-level project I've owned, touching product, engineering, content, and brand simultaneously.</p>
-              <a class="entry-btn" href="https://university.clay.com/certifications" target="_blank" rel="noopener">↗ university.clay.com/certifications</a>
+          <div class="lesson">
+            <span></span>
+            <div class="lesson-content">
+              <div class="lesson-title">Cohort <em>Engagement</em></div>
+              <p class="lesson-body">Engagement is earned, not a given. Across two pilot beta cohorts, I experimented with different pedagogical approaches and recruiting practices: which personas to recruit, how to structure async accountability, how to be a true facilitator for peer learning, what cadence kept momentum, and what caused drop-off.</p>
+              <p class="lesson-label">What I took from it</p>
+              <p class="lesson-learned">The sweet spot isn't more content or more check-ins but designing the right moments of commitment early, so founders self-select into high engagement before the cohort even begins. Recruiting and program design are the same problem.</p>
+              <a class="entry-btn" href="https://clay-cohorts-leaderboard.vercel.app/" target="_blank" rel="noopener">↗ Engagement Leaderboard</a>
             </div>
-            <span class="entry-date">Active</span>
           </div>
-
-          <div class="entry">
-            <span class="entry-dash">—</span>
-            <div class="entry-content">
-              <div class="entry-title">Clay <em>for Founders</em></div>
-              <p class="entry-body">Owned the launch of <a href="https://clay.com/clay-for-startups" target="_blank" rel="noopener" style="color:inherit;">clay.com/clay-for-startups</a> — a program with meaningful revenue and partnership implications, sitting at the intersection of community, brand, and growth.</p>
-              <a class="entry-btn" href="https://clay.com/clay-for-startups" target="_blank" rel="noopener">↗ clay.com/clay-for-startups</a>
-            </div>
-            <span class="entry-date">Dec 2025</span>
-          </div>
-
-          <div class="entry">
-            <span class="entry-dash">—</span>
-            <div class="entry-content">
-              <div class="entry-title">Clay <em>Campus</em> Ambassadors</div>
-              <p class="entry-body">Launched Clay's campus ambassador program from scratch — program design, application flow, onboarding infrastructure, and the live landing page. Ambassadors launch Clay Clubs on campus and get access to Clay credits, the talent network, and mentorship. Applications for 2026–2027 close May 11, 2026.</p>
-              <a class="entry-btn" href="https://ambassador-website-v2-rho.vercel.app/" target="_blank" rel="noopener">↗ View Program</a>
-            </div>
-            <span class="entry-date">Dec 2025</span>
-          </div>
-
         </div>
       </div>
 
@@ -568,6 +728,22 @@
         </div>
         <p class="intro-body">Founding GTM hire at <a href="https://hang.com" target="_blank" rel="noopener" style="color:inherit; border-bottom: 1px solid var(--rule);">Hang</a> — an AI-powered marketing platform for restaurants and consumer brands. Built every channel from scratch, carried full sales cycle responsibility from top-of-funnel lead generation to closing enterprise deals, helping double ARR within the first six months.</p>
         <a class="entry-btn" href="https://hang.com" target="_blank" rel="noopener" style="margin-top:1.5rem;">↗ hang.com</a>
+      </div>
+
+      <div class="logo-carousel-wrap">
+        <div class="logo-carousel-label">Closed & Activated</div>
+        <div class="logo-carousel-track" id="logoCarousel">
+          <img src="images/logos/justpoke.png" alt="Just Poke" />
+          <img src="images/logos/jenis.png" alt="Jeni's" />
+          <img src="images/logos/tazikis.png" alt="Taziki's" class="logo-invert" />
+          <img src="images/logos/bobaguys.png" alt="Boba Guys" />
+          <img src="images/logos/vitalitybowls.png" alt="Vitality Bowls" />
+          <img src="images/logos/justpoke.png" alt="Just Poke" />
+          <img src="images/logos/jenis.png" alt="Jeni's" />
+          <img src="images/logos/tazikis.png" alt="Taziki's" class="logo-invert" />
+          <img src="images/logos/bobaguys.png" alt="Boba Guys" />
+          <img src="images/logos/vitalitybowls.png" alt="Vitality Bowls" />
+        </div>
       </div>
 
       <div class="section">
@@ -777,6 +953,23 @@
   </main>
 
   <script>
+    // Welcome screen
+    const welcome = document.getElementById('welcomeScreen');
+    welcome.addEventListener('click', () => {
+      welcome.classList.add('fade-out');
+      document.body.classList.remove('welcome-active');
+    });
+
+    // Reset welcome screen on bfcache restore
+    window.addEventListener('pageshow', (e) => {
+      if (e.persisted) {
+        welcome.classList.remove('fade-out');
+        document.body.classList.add('welcome-active');
+        window.scrollTo(0, 0);
+      }
+    });
+
+    // Tab switching
     document.querySelectorAll('.nav-tab').forEach(btn => {
       btn.addEventListener('click', () => {
         const target = btn.dataset.tab;
