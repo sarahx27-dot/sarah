@@ -336,6 +336,28 @@
     }
     .entry-btn:hover { background: #4484bc; border-color: #4484bc; }
 
+    /* ── VIDEO EMBED ── */
+    .entry-video {
+      grid-column: 2;
+      margin-top: 0.5rem;
+    }
+    .entry-video-wrap {
+      position: relative;
+      width: 100%;
+      max-width: 640px;
+      aspect-ratio: 16 / 9;
+      background: #000;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .entry-video-wrap iframe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
     /* ── FOOTER ── */
     footer {
       padding: 2.5rem 3.5rem;
@@ -509,7 +531,8 @@
   <nav>
     <span class="nav-name">Sarah Xu</span>
     <div class="nav-tabs">
-      <button class="nav-tab active" data-tab="clay">Clay</button>
+      <button class="nav-tab active" data-tab="cognition">Cognition</button>
+      <button class="nav-tab" data-tab="clay">Clay</button>
       <button class="nav-tab" data-tab="hang">Hang</button>
       <button class="nav-tab" data-tab="more">More</button>
     </div>
@@ -518,8 +541,103 @@
 
   <main>
 
+    <!-- ══════════════════ COGNITION ══════════════════ -->
+    <div id="tab-cognition" class="tab-panel active">
+
+      <div class="intro">
+        <div>
+          <p class="intro-label">Cognition</p>
+          <h1 class="intro-hed">Work<br>Snapshot</h1>
+        </div>
+        <p class="intro-body">Work and highlights from my time at Cognition, the makers of Devin.</p>
+      </div>
+
+      <div class="section">
+        <div class="section-head">
+          <span class="section-num">01</span>
+          <h2 class="section-hed">Mini<br><em>Documentary</em></h2>
+        </div>
+        <div class="entries">
+          <div class="entry">
+            <span class="entry-dash">—</span>
+            <div class="entry-content">
+              <div class="entry-title">Cognition × <em>GE Aerospace</em></div>
+              <p class="entry-body">Led storytelling and end-to-end execution for a first-of-its-kind mini documentary on how GE Aerospace is building the future of flight with Devin, the AI software engineer.</p>
+              <div class="entry-video">
+                <div class="entry-video-wrap">
+                  <iframe title="vimeo-player" src="https://player.vimeo.com/video/1218746605?h=9295d02484" frameborder="0" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" allowfullscreen></iframe>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-head">
+          <span class="section-num">02</span>
+          <h2 class="section-hed">Devin<br><em>University</em></h2>
+        </div>
+        <div class="entries">
+          <div class="entry">
+            <span class="entry-dash">—</span>
+            <div class="entry-content">
+              <div class="entry-title">Self Serve <em>Learning Platform</em></div>
+              <p class="entry-body">Architected and built the full curriculum for Cognition's first self-serve learning platform, from architecture to course design.</p>
+              <a class="entry-btn" href="https://learn.devinenterprise.com/" target="_blank" rel="noopener">↗ learn.devinenterprise.com</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-head">
+          <span class="section-num">03</span>
+          <h2 class="section-hed">Devin for<br><em>Security</em></h2>
+        </div>
+        <div class="entries">
+          <div class="entry">
+            <span class="entry-dash">—</span>
+            <div class="entry-content">
+              <div class="entry-title">Devin for <em>Security</em></div>
+              <p class="entry-body">Owned end-to-end launch messaging for Devin's security line, including Security in Devin Review and Security Swarm — positioning a guarantee-backed offering that finds, fixes, and prevents vulnerabilities at scale.</p>
+              <a class="entry-btn" href="https://devin.ai/security" target="_blank" rel="noopener">↗ devin.ai/security</a>
+              <a class="entry-btn" href="https://devin.ai/blog/security-in-devin-review" target="_blank" rel="noopener">↗ Security in Devin: A Review</a>
+              <a class="entry-btn" href="https://cognition.com/blog/introducing-devin-security-swarm" target="_blank" rel="noopener">↗ Introducing Devin Security Swarm</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-head">
+          <span class="section-num">04</span>
+          <h2 class="section-hed">Customer<br><em>Stories</em></h2>
+        </div>
+        <div class="entries">
+          <div class="entry">
+            <span class="entry-dash">—</span>
+            <div class="entry-content">
+              <div class="entry-title">Customer <em>Stories</em></div>
+              <p class="entry-body">A selection of customer stories and partnerships showcasing Devin in production.</p>
+              <a class="entry-btn" href="https://devin.ai/customers/hippo" target="_blank" rel="noopener">↗ Hippo</a>
+              <a class="entry-btn" href="https://devin.ai/customers/ahead" target="_blank" rel="noopener">↗ Ahead</a>
+              <a class="entry-btn" href="https://cognition.com/blog/ltm-cognition-partnership" target="_blank" rel="noopener">↗ LTM × Cognition Partnership</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <span>Sarah Xu · Cognition</span>
+        <span>©</span>
+      </footer>
+
+    </div><!-- /cognition -->
+
+
     <!-- ══════════════════ CLAY ══════════════════ -->
-    <div id="tab-clay" class="tab-panel active">
+    <div id="tab-clay" class="tab-panel">
 
       <div class="intro">
         <div>
@@ -895,6 +1013,7 @@
       </footer>
 
     </div><!-- /hang -->
+
 
 
     <!-- ══════════════════ MORE ══════════════════ -->
